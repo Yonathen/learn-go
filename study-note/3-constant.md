@@ -1,6 +1,6 @@
 # Go Constants
-- Should have fixed value that cannot be changed
-- "Unchangeable and readonly"
+- Should be fixed value that cannot be changed
+  - "Unchangeable and readonly"
 - Follows the same naming rule as variables
 - Consider the following code
 ```go

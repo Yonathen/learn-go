@@ -1,3 +1,77 @@
+# Go Input Functions
+- Go has 3 different variation of `scan()` method
+  - `fmt.Scan()`
+  - `fmt.Scanln()`
+  - `fmt.Scanf()`
+
+## Go fmt.Scan()
+- Takes input from user
+- It can only take input values up to a space
+  - So when it counters a space the value before the space is assigned
+
+- Example: To take multiple input from the user look at the following example
+```go
+package main
+
+import "fmt"
+
+func scanNameAndAge() {
+	fmt.Println("\nScan Name And Age By scan()")
+	var name string
+	var age int
+
+	fmt.Print("Enter your name and age ")
+	fmt.Scan(&name, &age)
+
+	fmt.Printf("\n Hi %s, Your age is %d \n", name, age)
+
+}
+func main() {
+	scanNameAndAge()
+}
+```
+
+## Go fmt.Scanln()
+- get the input values up to the new line
+- When it encounters a new line it stops taking input
+```go
+package main
+
+import "fmt"
+
+func scanlnNameAndAge() {
+	fmt.Println("\nScan Name And Age By scanln()")
+  var name string
+  var age int
+    fmt.Print("Enter your name and age ")
+    fmt.Scanln(&name, &age)
+    fmt.Printf("\n Hi again %s, this is scanln. Your age is %d \n", name, age)
+}
+func main() {
+    scanlnNameAndAge()
+}
+```
+## Go fmt.scanf()
+- Similar to `scanln()`
+  - Except in this case it takes inputs using format specifier
+```go
+package main
+
+import "fmt"
+
+func scanlnNameAndAge() {
+	fmt.Println("\nScan Name And Age By scanln()")
+  var name string
+  var age int
+    fmt.Print("Enter your name and age ")
+    fmt.Scanf("%s %d", &name, &age)
+    fmt.Printf("\n Hi again %s, this is scanf. Your age is %d \n", name, age)
+}
+func main() {
+    scanlnNameAndAge()
+}
+```
+
 # GO Output Functions
 - Has three functions
   - `Print()`

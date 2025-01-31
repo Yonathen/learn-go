@@ -1,32 +1,8 @@
-# Go for Loops
-
-- Syntax for `for` loop
-    ```
-    // Syntax for for loop
-    for <statment1>; statment2; statment3 {
-        // Code block
-    } 
-    ```
-    - `statement1` : initializes the loop
-      - `statement2` : Evaluates each loop
-      - `staement3` : increase the loop counter value
-
-- Syntax for `for` loop with Range Keyword
-    ```
-    // Syntax for for loop with Range Keyword
-    for <index>, <value> := rante <array|slice|map> {
-        // Code block
-    }
-    ```
-    - if you want to skip the index use `_` in place of `<index>`
-
-- Example
-```go
 package main
 
 import "fmt"
 
-func main() {
+func forLoop() {
 	fmt.Println("For loop : with continue and break demo")
 	for i := 0; i <= 10; i++ {
 		if i == 8 {
@@ -61,4 +37,43 @@ func main() {
 		fmt.Printf("Value %s \n", value)
 	}
 }
-```
+
+func ifCondition(time int) {
+	fmt.Println("\nIf Condition")
+	if time < 10 {
+		fmt.Println("Good morning")
+	} else if time > 12 {
+		fmt.Println("Good Afternoon")
+	} else {
+		fmt.Println("Good evening")
+	}
+}
+
+func switchStatement(day int) {
+	fmt.Println("\nSwitch Statement")
+	switch day {
+	case 1:
+		fmt.Println("Sunday")
+	case 2:
+		fmt.Println("Monday")
+	case 3:
+		fmt.Println("Tuesday")
+	case 4:
+		fmt.Println("Wednesday")
+	case 5:
+		fmt.Println("Thursday")
+	case 6:
+		fmt.Println("Friday")
+	case 7:
+		fmt.Println("Saturday")
+	default:
+		fmt.Println("Invalid day")
+	}
+}
+
+func main() {
+	forLoop()
+	ifCondition(3)
+	ifCondition(13)
+	switchStatement(2)
+}

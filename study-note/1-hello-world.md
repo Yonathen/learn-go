@@ -17,9 +17,9 @@ func main()  {
   - `fmt` is built-in package 
       - used for input/output
   - `main()` function is a special function
-      - since its the place where the program starts
+      - since it's the place where the program starts
   - `fmt.Println("Hello world")`
-      - formats accordint to the format specifier and writes to the standard output
+      - formats according to the format specifier and writes to the standard output
 
 - Compiling our go code 
   - `go run hello.go`

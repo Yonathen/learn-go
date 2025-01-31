@@ -1,3 +1,48 @@
+# Go Data Types
+- Basic datatypes
+  
+| Data Types | Description                    |
+|------------|--------------------------------|
+| int        | integer numbers                |
+| float      | Decimal points                 |
+| complex    | Complex numbers                |
+| string     | Sequence of characters         |
+| bool       | true / false                   |
+| byte       | 8 bits of non-negative integer |
+
+```go
+var message string = "Welcome"
+var boolValue bool = false
+```
+
+## Integer data type
+- int : Signed integer
+- uint : Unsigned integer
+
+| Data Types   | Size              |
+|--------------|-------------------|
+| int/uint     | 32 bits / 64 bits |
+| int8/uint8   | 8 bits (1 byte)   |
+| int16/uint16 | 16 bits (2 bytes) |
+| int32/uint32 | 32 bits (4 bytes) |
+| int64/uint64 | 64 bits (8 bytes) |
+```go
+var integer int32 = 234
+```
+
+## Float data types
+- Holds decimal points
+- If we don't specify the size of float variable it will take 64-bits by default
+
+| Data type | size             |
+|-----------|------------------|
+| float32   | 32 bits (4 byte) |
+| float64   | 64 bits (8 byte) |
+
+```go
+var decimal float32 = 234.43
+```
+
 # Go Variables
 - Variables are containers for storing data values
 
