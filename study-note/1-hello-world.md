@@ -1,29 +1,75 @@
-# Writing Hello, World in Go
-```go
-package main
+## Installing and Configuring Go
 
-import "fmt"
+Before you start writing Go code, you need to install and configure Go on your system.
 
-func main()  {
-    fmt.Println("Hello, World!")
-}
+### 1. Downloading Go
+
+- Visit the official Go downloads page: [https://go.dev/dl/](https://go.dev/dl/)
+- Choose your operating system (Windows, macOS, Linux) and download the installer.
+
+### 2. Installing Go
+
+**Windows**
+- Run the installer you downloaded and follow the setup instructions.
+
+**macOS**
+- Open the PKG installer and follow the installation instructions.
+- Alternatively, you can use Homebrew:
+  ```
+  brew install go
+  ```
+
+**Linux**
+- Extract the tarball to `/usr/local`:
+  ```
+  tar -C /usr/local -xzf go<version>.linux-amd64.tar.gz
+  ```
+- Add Go to your `PATH`:
+  ```
+  export PATH=$PATH:/usr/local/go/bin
+  ```
+
+### 3. Verifying Installation
+
+Open your terminal and run:
 ```
-- We organize go programs in packages
-    - Declare which package it belongs
-    - A package can be composed of multiple files or one
-    - A program can contain multiple packages
-    - `main` package is the entry point to the program
-  - We use `import` keyword to import package
-  - `fmt` is built-in package 
-      - used for input/output
-  - `main()` function is a special function
-      - since it's the place where the program starts
-  - `fmt.Println("Hello world")`
-      - formats according to the format specifier and writes to the standard output
+go version
+```
+You should see the installed Go version.
 
-- Compiling our go code 
-  - `go run hello.go`
-    - First compiles and then runs the program
-  - `go build hello.go`
-    - This will create a `hello` file
-      - that's a binary you can execute
+### 4. Setting Up Your Go Workspace
+
+- Go recommends using a workspace directory for your code. By default, you can place your code anywhere, but commonly under your home directory:
+  ```
+  mkdir ~/go
+  ```
+- Set your workspace and bin paths (optional):
+  ```
+  export GOPATH=~/go
+  export PATH=$PATH:$GOPATH/bin
+  ```
+
+### 5. Creating Your First Go File
+
+- Create a directory for your project:
+  ```
+  mkdir ~/go/hello
+  cd ~/go/hello
+  ```
+- Create a file named `hello.go` and add your code.
+
+### 6. Running Your Code
+
+- Use `go run` to execute:
+  ```
+  go run hello.go
+  ```
+- Use `go build` to create an executable:
+  ```
+  go build hello.go
+  ./hello
+  ```
+
+---
+
+Now you're ready to start writing and running Go programs!
