@@ -1,136 +1,313 @@
-# Go Constants
+# Go Input & Output Functions
 
-## What is a Constant?
-- A constant is a *fixed, unchangeable value* that is determined at compile time.
-- Once declared, the value **cannot be modified** throughout the program ("Unchangeable and readonly").
-- Constants help ensure code reliability by preventing inadvertent modification of important, fixed values.
+Go provides powerful facilities for taking input from users and displaying output. Understanding these functions is essential for effective interaction in CLI applications.
 
-## General Rules
-- Naming conventions for constants follow the same rules as variables (camelCase, PascalCase for exported names).
-- Constants can be either **typed** or **untyped**.
-  - *Typed constant*: Declared with an explicit type.
-  - *Untyped constant*: Declared without specifying a type, may assume a different type depending on context.
+---
 
-## Declaration Syntax
-Use the `const` keyword, either outside or inside a function:
+## Input Functions in Go (`fmt` Package)
 
+Go offers multiple variations of the `scan` methods for reading user input from the standard input, each with its own use cases.
+
+### Variations of Scan Functions
+
+- [`fmt.Scan()`](https://pkg.go.dev/fmt#Scan)
+- [`fmt.Scanln()`](https://pkg.go.dev/fmt#Scanln)
+- [`fmt.Scanf()`](https://pkg.go.dev/fmt#Scanf)
+
+---
+
+### 1. `fmt.Scan()`
+
+- Reads input separated by spaces.
+- Stops reading variables at whitespace.
+- Suitable for quickly reading multiple space-separated values.
+
+**Example:** *(scan name and age separated by a space)*
 ```go
-const typedConst int = 100
-const untypedConst = "Hello"
+package main
+
+import "fmt"
+
+func scanNameAndAge() {
+	fmt.Println("\nScan Name And Age By scan()")
+	var name string
+	var age int
+
+	fmt.Print("Enter your name and age: ")
+	fmt.Scan(&name, &age)
+
+	fmt.Printf("Hi %s, Your age is %d\n", name, age)
+}
+
+func main() {
+	scanNameAndAge()
+}
 ```
 
-Constants can also be grouped:
+**Sample Input:** `Alice 29`
 
+**Sample Output:** `Hi Alice, Your age is 29`
+
+---
+
+### 2. `fmt.Scanln()`
+
+- Reads input until a newline character is encountered.
+- Useful for taking multiple values, but stops reading when Enter is pressed.
+
+**Example:**
 ```go
-const (
-    Pi        = 3.14159
-    Language  = "Go"
-    DaysInWeek = 7
-)
+package main
+
+import "fmt"
+
+func scanlnNameAndAge() {
+	fmt.Println("\nScan Name And Age By scanln()")
+	var name string
+	var age int
+	fmt.Print("Enter your name and age: ")
+	fmt.Scanln(&name, &age)
+	fmt.Printf("Hi again %s, this is scanln. Your age is %d\n", name, age)
+}
+
+func main() {
+	scanlnNameAndAge()
+}
 ```
 
-## Example Program
+**Sample Input:** `Bob 35`
+
+---
+
+### 3. `fmt.Scanf()`
+
+- Reads formatted input using format specifiers (just like `printf` for output).
+- Flexible for customized parsing.
+
+**Example:**
+```go
+package main
+
+import "fmt"
+
+func scanfNameAndAge() {
+	fmt.Println("\nScan Name And Age By scanf()")
+	var name string
+	var age int
+	fmt.Print("Enter your name and age: ")
+	fmt.Scanf("%s %d", &name, &age)
+	fmt.Printf("Hi again %s, this is scanf. Your age is %d\n", name, age)
+}
+
+func main() {
+	scanfNameAndAge()
+}
+```
+
+**Sample Input:** `Charlie 44`
+
+---
+
+### Notes
+
+- All these scan functions return the number of items successfully scanned and an error (if any).
+- Always check for errors in production programs for robust input handling.
+
+**Example:**
+```go
+n, err := fmt.Scan(&name, &age)
+if err != nil {
+    fmt.Println("Error reading input:", err)
+}
+```
+
+---
+
+## Output Functions in Go (`fmt` Package)
+
+Go provides several functions for formatted output. The main ones are:
+
+- `fmt.Print()`
+- `fmt.Println()`
+- `fmt.Printf()`
+
+---
+
+### 1. `fmt.Print()`
+
+- Prints arguments as-is, no extra spaces added, and doesn’t append a newline.
+- To print on a new line, explicitly add `\n`.
+
+**Example:**
+```go
+fmt.Print("Hello")
+fmt.Print("World")
+fmt.Print("\n") // For newline
+```
+**Output:** `HelloWorld`
+
+---
+
+### 2. `fmt.Println()`
+
+- Prints arguments separated by a space and automatically appends a newline.
+
+**Example:**
+```go
+fmt.Println("Hello")
+fmt.Println("World")
+```
+
+**Output:**
+```
+Hello
+World
+```
+
+---
+
+### 3. `fmt.Printf()`
+
+- Prints formatted output according to the specified format string and formatting verbs.
+
+**Example:**
+```go
+var name = "David"
+var age = 25
+fmt.Printf("Hi, %s! You are %d years old.\n", name, age)
+```
+
+---
+
+## Output Example: All Three Functions
 
 ```go
 package main
 
 import "fmt"
 
-// Package-level constants
-const TYPED_CONSTANT int = 1
-const UNTYPED_CONSTANT = 2
-
 func main() {
-    // Block constants within a function
-    const (
-        A   int = 1
-        PIE      = 3.14
-        C        = "Area of a circle"
-    )
+	var str1, str2 = "Print : Prints", "On Same lines"
 
-    fmt.Println(TYPED_CONSTANT, UNTYPED_CONSTANT)
-    fmt.Println(A, PIE, C)
+	fmt.Print(str1)
+	fmt.Print(str2)
+	fmt.Print("\n", str1, "\n", str2, "\n")
+
+	var str3, str4 = "Println : Prints", "Always on the new line"
+	fmt.Println(str3)
+	fmt.Println(str4)
+
+	var (
+		str5        = "i has value = %v and type %T\n"
+		str6        = "j has value = %v and type %T\n"
+		i    string = "Hello Again"
+		j    int    = 20
+	)
+	fmt.Printf(str5, i, i)
+	fmt.Printf(str6, j, j)
 }
 ```
 
-## Key Properties & Missing Details
+---
 
-### Allowed Types
-- Constants can only be of:
-  - Boolean (`true`, `false`)
-  - Numeric types (integer, floating-point, complex)
-  - String
-- **Slices, maps, structs, arrays, and functions** cannot be constant.
+## Formatting Verbs Reference
 
-### Implicitly Untyped Constants
-- Untyped constants can be used as any compatible type in assignment.
-  ```go
-  const x = 42     // Untyped
-  var y int = x    // Type inferred as int
-  var z float64 = x // Type inferred as float64
-  ```
-- Makes them flexible and useful in expressions.
+The `fmt.Printf()` and `fmt.Scanf()` functions use *verbs* for formatting. Here are the most commonly used ones:
 
-### Compile-Time Evaluation
-- Constants must be assigned with compile-time constant expressions only.
-- You cannot assign runtime values or expressions to a constant:
-  ```go
-  const myConst = math.Sqrt(4) // ❌ Invalid, math.Sqrt runs at runtime
-  ```
+### General Formatting
+| Verb   | Description                        |
+|--------|------------------------------------|
+| `%v`   | Value in default format            |
+| `%#v`  | Value in Go-syntax                 |
+| `%T`   | Type of the value                  |
+| `%%`   | Literal percent sign               |
 
-### Enumerated Constants and Iota
-- Go uses `iota` for incrementing values, typically for enums.
-- `iota` starts at zero in each const block and increments automatically.
-- Example:
+### Strings
+| Verb    | Description                           |
+|---------|---------------------------------------|
+| `%s`    | Plain string                          |
+| `%q`    | Double-quoted string                  |
+| `%8s`   | Width 8, right justified              |
+| `%-8s`  | Width 8, left justified               |
+| `%x`    | Hexadecimal                          |
+| `% X`   | Hexadecimal with spaces               |
 
-  ```go
-  const (
-      Sunday = iota
-      Monday
-      Tuesday
-      Wednesday
-      Thursday
-      Friday
-      Saturday
-  )
-  fmt.Println(Sunday, Monday, Saturday) // Output: 0 1 6
-  ```
+### Integers
+| Verb    | Description                                        |
+|---------|----------------------------------------------------|
+| `%b`    | Base 2 (binary)                                    |
+| `%d`    | Base 10 (decimal)                                  |
+| `%+d`   | Always show sign                                   |
+| `%o`    | Base 8 (octal)                                     |
+| `%O`    | Base 8 (with leading 0o)                           |
+| `%x`    | Base 16, lowercase                                 |
+| `%X`    | Base 16, uppercase                                 |
+| `%#x`   | Base 16, with leading 0x                           |
+| `%4d`   | Right justified, width 4                           |
+| `%-4d`  | Left justified, width 4                            |
+| `%04d`  | Pad with zeroes, width 4                           |
 
-### Exporting Constants
-- Constants starting with an uppercase letter are **exported** (visible outside the package).
-  ```go
-  const MaxLength = 1024      // Exported Constant
-  const minLength = 1         // Unexported (internal) Constant
-  ```
+### Floats
+| Verb     | Description                                         |
+|----------|-----------------------------------------------------|
+| `%e`     | Scientific notation (e.g., -1.234e+06)              |
+| `%f`     | Decimal format (default precision)                  |
+| `%.2f`   | Two digits after the decimal point                  |
+| `%6.2f`  | Width 6, precision 2                                |
+| `%g`     | Compact (exponent only if needed)                   |
 
-### Constant Expressions
-- You can use arithmetic and logical operators to form constant expressions:
-  ```go
-  const radius = 5
-  const area = Pi * radius * radius
-  ```
+---
 
-## Best Practices
+## Input/Output Best Practices
 
-- Prefer constants for values that never change and are referenced in multiple places.
-  - Example: Mathematical values, limits, configuration settings, keys, enum values.
-- Use `iota` for enumerated sequences to avoid manual value assignment.
-- Give constants descriptive names that clearly indicate their purpose.
+- **Always handle errors!** For example, reads might fail or get incomplete input.
+- Use **comments** and clear prompts to help users.
+- For repeated input, consider using **loops** and **bufio.Scanner** for more control and flexibility.
+
+---
+
+## Advanced: Buffered Input With `bufio`
+
+For line-by-line input or better performance, use the `bufio` package.
+
+```go
+package main
+
+import (
+    "bufio"
+    "fmt"
+    "os"
+)
+
+func main() {
+    reader := bufio.NewReader(os.Stdin)
+    fmt.Print("Enter a line: ")
+    input, _ := reader.ReadString('\n')
+    fmt.Println("You entered:", input)
+}
+```
 
 ---
 
 ## Summary Table
 
-| Aspect         | Details                                               |
-| -------------- | ---------------------------------------------------- |
-| Mutability     | Immutable (cannot change after declaration)          |
-| Types allowed  | bool, numeric, string                                |
-| Scope          | Package-level or block-level                         |
-| Exported       | Name starts with uppercase letter                    |
-| Special tools  | `iota` for sequences/enums                           |
-| Runtime usage  | Compile-time only                                    |
+| Function    | Reads until | Format Support | Example Use Case      |
+|-------------|-------------|----------------|-----------------------|
+| `Scan()`    | Space       | No             | Small set of words    |
+| `Scanln()`  | Newline     | No             | Multi-word line entry |
+| `Scanf()`   | Custom fmt  | Yes            | Structured input      |
+| `Print()`   | -           | No             | Simple output         |
+| `Println()` | -           | No             | Output with newline   |
+| `Printf()`  | -           | Yes            | Formatted output      |
 
-## Reference
+---
 
-- [Go constants - Official Tour](https://tour.golang.org/basics/15)
-- [Effective Go: Constants](https://go.dev/doc/effective_go#constants)
+### Additional Resources
+
+- [Official fmt Documentation](https://pkg.go.dev/fmt)
+- [Go by Example: Input](https://gobyexample.com/reading-files)
+- [Tour of Go: Formatting](https://tour.golang.org/basics/15)
+
+---
+
+> **Tip:** For more comprehensive input handling, explore `bufio.Scanner` and handling errors gracefully.
